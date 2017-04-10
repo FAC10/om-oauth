@@ -15,6 +15,10 @@ server.connection({
   }
 });
 
+server.state('om-cookie', {
+  encoding: 'base64json',
+});
+
 server.route(routes);
 
 module.exports = server;
