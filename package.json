@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/FAC10/om-oauth#readme",
   "dependencies": {
+    "env2": "^2.1.1",
     "hapi": "^16.1.1",
     "inert": "^4.2.0"
   },
