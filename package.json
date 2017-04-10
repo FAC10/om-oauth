@@ -1,0 +1,28 @@
+{
+  "name": "om-oauth",
+  "version": "1.0.0",
+  "description": "Oli &amp; Martha's OAuth Workshop",
+  "main": "index.js",
+  "scripts": {
+    "start": "node src/start.js",
+    "start:dev": "nodemon src/start.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/FAC10/om-oauth.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/FAC10/om-oauth/issues"
+  },
+  "homepage": "https://github.com/FAC10/om-oauth#readme",
+  "dependencies": {
+    "hapi": "^16.1.1",
+    "inert": "^4.2.0"
+  },
+  "devDependencies": {
+    "nodemon": "^1.11.0"
+  }
+}
