@@ -38,3 +38,6 @@ jspm_packages
 
 # App config secrets
 config.env
+
+# RSA keys
+keys
