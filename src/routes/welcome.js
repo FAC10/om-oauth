@@ -32,14 +32,24 @@ const welcome = ({
             },
           'accessToken': acctok
         };
+
         jwt.sign(payload, process.env.JWT_SECRET, options, (err, token) => {
           if (err) return console.log(err);
           console.log(token);
+          let config = {
+            path: '/',
+            isSecure: process.env.NODE_ENV === 'PRODUCTION'
+          }
+
+          reply
+           .redirect('/secure') //make a new route for the redirect, config it with an authentication strategy
+           .state('token', token, config);
         });
-        reply.redirect('/');
+
       })
     })
   }
 })
+
 
 module.exports = welcome;
