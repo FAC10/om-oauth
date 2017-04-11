@@ -11,14 +11,17 @@ const welcome = ({
     const url = `https://github.com/login/oauth/access_token?client_id=${process.env.CLIENT_ID}&client_secret=${process.env.CLIENT_SECRET}&code=${code}`;
     request.post(url, (err, res, body) => {
       const acctok = qs.parse(body).access_token;
-      bcrypt.genSalt(10, (err, salt) => {
-        bcrypt.hash(acctok, salt, (err, hash) => {
-          if (err) console.log('Error:' + err);
-          reply.redirect('/').state('om-cookie', { accessToken: hash });
-          })
-        })
+      const headers = {
+        'User-Agent': 'oauth_github_jwt',
+        Authorization: `token ${acctok}`
+      };
+      const userURL = 'https://api.github.com/user';
+      request.get({ url: userURL, headers }, (err, res, body) => {
+        console.log(body);
+        reply.redirect('/');
       })
-    }
-  })
+    })
+  }
+})
 
 module.exports = welcome;
