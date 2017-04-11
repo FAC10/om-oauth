@@ -18,21 +18,20 @@ const welcome = ({
       };
       const userURL = 'https://api.github.com/user';
       request.get({ url: userURL, headers }, (err, res, body) => {
-
+        if (err) throw err;
         let options = {
           'expiresIn': Date.now() + 24 * 60 * 60 * 1000,
           'subject': 'github-data'
         };
-
+        const parsedBody = JSON.parse(body);
         let payload = {
           'user': {
-              'username': body.login,
-              'img_url': body.avatar_url,
-              'user_id': body.id
+              'username': parsedBody.login,
+              'img_url': parsedBody.avatar_url,
+              'user_id': parsedBody.id
             },
           'accessToken': acctok
         };
-
         jwt.sign(payload, process.env.JWT_SECRET, options, (err, token) => {
           if (err) return console.log(err);
           console.log(token);
