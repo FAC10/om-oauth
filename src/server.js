@@ -1,6 +1,7 @@
 const hapi = require('hapi');
 const inert = require('inert');
 const fs = require('fs');
+const hapicookie = require('hapi-auth-cookie');
 
 const routes = require('./routes');
 
@@ -15,10 +16,15 @@ server.connection({
   }
 });
 
-server.state('om-cookie', {
-  encoding: 'base64json',
-});
+// server.state('om-cookie', {
+//   encoding: 'base64json',
+// });
 
-server.route(routes);
+server.register([inert, hapicookie], (err) => {
+  if (err) throw err;
+
+  server.route(routes);
+})
+
 
 module.exports = server;
