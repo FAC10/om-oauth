@@ -1,6 +1,7 @@
 const request = require('request');
 const bcrypt = require('bcryptjs');
 const qs = require('querystring');
+const jwt = require('jsonwebtoken');
 require('env2')('config.env');
 
 const welcome = ({
@@ -17,7 +18,24 @@ const welcome = ({
       };
       const userURL = 'https://api.github.com/user';
       request.get({ url: userURL, headers }, (err, res, body) => {
-        console.log(body);
+
+        let options = {
+          'expiresIn': Date.now() + 24 * 60 * 60 * 1000,
+          'subject': 'github-data'
+        };
+
+        let payload = {
+          'user': {
+              'username': body.login,
+              'img_url': body.avatar_url,
+              'user_id': body.id
+            },
+          'accessToken': acctok
+        };
+        jwt.sign(payload, process.env.JWT_SECRET, options, (err, token) => {
+          if (err) return console.log(err);
+          console.log(token);
+        });
         reply.redirect('/');
       })
     })
